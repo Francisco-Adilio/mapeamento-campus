@@ -1,30 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --ifsc-green-50: #e8f5e9;
-  --ifsc-green-100: #c8e6c9;
-  --ifsc-green-200: #a5d6a7;
-  --ifsc-green-300: #81c784;
-  --ifsc-green-400: #66bb6a;
-  --ifsc-green-500: #4caf50;
-  --ifsc-green-600: #43a047;
-  --ifsc-green-700: #388e3c;
-  --ifsc-green-800: #2e7d32;
-  --ifsc-green-900: #1b5e20;
-
-  --ifsc-red-50: #ffebee;
-  --ifsc-red-100: #ffcdd2;
-  --ifsc-red-200: #ef9a9a;
-  --ifsc-red-300: #e57373;
-  --ifsc-red-400: #ef5350;
-  --ifsc-red-500: #f44336;
-  --ifsc-red-600: #e53935;
-  --ifsc-red-700: #d32f2f;
-  --ifsc-red-800: #c62828;
-  --ifsc-red-900: #b71c1c;
+  --background: #f8f9fa;
+  --foreground: #212529;
+  --surface: #ffffff;
+  --border: rgba(52, 58, 64, 0.12);
+  --ifsc-green-50: #edf8ef;
+  --ifsc-green-100: #d6f0da;
+  --ifsc-green-200: #b7e3bf;
+  --ifsc-green-300: #8ed19b;
+  --ifsc-green-400: #65bc73;
+  --ifsc-green-500: #41a451;
+  --ifsc-green-600: #2b7a45;
+  --ifsc-green-700: #21623a;
+  --ifsc-green-800: #19502f;
+  --ifsc-green-900: #143f26;
 }
 
 @theme inline {
@@ -34,15 +25,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
 }

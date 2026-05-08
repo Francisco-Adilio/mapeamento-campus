@@ -1,78 +1,230 @@
-import { createTheme, MantineTheme } from '@mantine/core';
+import { createTheme, rem } from "@mantine/core";
 
-export const ifscTheme = createTheme({
+export const theme = createTheme({
+  primaryColor: "green",
+
   colors: {
-    'ifsc-green': [
-      '#e8f5e9',
-      '#c8e6c9',
-      '#a5d6a7',
-      '#81c784',
-      '#66bb6a',
-      '#4caf50',
-      '#43a047',
-      '#388e3c',
-      '#2e7d32',
-      '#1b5e20',
+    green: [
+      "#eef8f0",
+      "#d8efdc",
+      "#b0dfbb",
+      "#84cf96",
+      "#5dc078",
+      "#46b866",
+      "#3ab45c",
+      "#2f9d4e",
+      "#268b44",
+      "#157e34",
     ],
-    'ifsc-red': [
-      '#ffebee',
-      '#ffcdd2',
-      '#ef9a9a',
-      '#e57373',
-      '#ef5350',
-      '#f44336',
-      '#e53935',
-      '#d32f2f',
-      '#c62828',
-      '#b71c1c',
+
+    gray: [
+      "#f8f9fa",
+      "#f1f3f5",
+      "#e9ecef",
+      "#dee2e6",
+      "#ced4da",
+      "#adb5bd",
+      "#868e96",
+      "#495057",
+      "#343a40",
+      "#212529",
     ],
   },
-  primaryColor: 'ifsc-green',
-  primaryShade: 6,
+
+  primaryShade: {
+    light: 6,
+    dark: 8,
+  },
+
+  white: "#FFFFFF",
+  black: "#1F2933",
+
   fontFamily:
-    'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont',
-  headings: { fontFamily: 'Inter, system-ui, -apple-system, "Segoe UI", Roboto' },
-  radius: { xs: '4px', sm: '6px', md: '8px', lg: '12px', xl: '16px' },
-  spacing: { xs: '8px', sm: '12px', md: '16px', lg: '24px', xl: '32px' },
-  shadows: {
-    xs: '0 1px 2px rgba(16,24,40,0.04)',
-    sm: '0 2px 6px rgba(16,24,40,0.08)',
-    md: '0 6px 18px rgba(16,24,40,0.12)',
-    lg: '0 12px 30px rgba(16,24,40,0.16)',
-    xl: '0 24px 60px rgba(16,24,40,0.2)',
+    "Poppins, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+
+  headings: {
+    fontFamily:
+      "Poppins, Inter, ui-sans-serif, system-ui, sans-serif",
+
+    fontWeight: "600",
+
+    sizes: {
+      h1: {
+        fontSize: rem(40),
+        lineHeight: "1.2",
+      },
+
+      h2: {
+        fontSize: rem(32),
+        lineHeight: "1.25",
+      },
+
+      h3: {
+        fontSize: rem(28),
+        lineHeight: "1.3",
+      },
+
+      h4: {
+        fontSize: rem(24),
+        lineHeight: "1.35",
+      },
+
+      h5: {
+        fontSize: rem(20),
+        lineHeight: "1.4",
+      },
+
+      h6: {
+        fontSize: rem(18),
+        lineHeight: "1.45",
+      },
+    },
   },
+
+  radius: {
+    xs: rem(6),
+    sm: rem(10),
+    md: rem(14),
+    lg: rem(20),
+    xl: rem(28),
+  },
+
+  spacing: {
+    xs: rem(8),
+    sm: rem(12),
+    md: rem(16),
+    lg: rem(24),
+    xl: rem(32),
+  },
+
+  shadows: {
+    xs: "0 1px 2px rgba(0,0,0,0.04)",
+
+    sm: "0 2px 6px rgba(0,0,0,0.06)",
+
+    md: "0 4px 12px rgba(0,0,0,0.08)",
+
+    lg: "0 8px 24px rgba(0,0,0,0.10)",
+
+    xl: "0 12px 32px rgba(0,0,0,0.12)",
+  },
+
   components: {
     Button: {
-      defaultProps: { radius: 'md' },
+      defaultProps: {
+        radius: "md",
+        size: "md",
+      },
+
       styles: {
         root: {
-          fontWeight: 600,
-          borderRadius: '8px',
-        },
-        outline: {
-          borderColor: '#4caf50',
+          fontWeight: 500,
+          transition: "all 150ms ease",
         },
       },
     },
+
     Card: {
+      defaultProps: {
+        radius: "lg",
+        shadow: "sm",
+        padding: "lg",
+        withBorder: true,
+      },
+
       styles: {
         root: {
-          borderRadius: '8px',
-          boxShadow: '0 2px 6px rgba(16,24,40,0.08)',
+          borderColor: "#E9ECEF",
+          backgroundColor: "#FFFFFF",
         },
       },
     },
-    Badge: {
+
+    Paper: {
+      defaultProps: {
+        radius: "lg",
+        shadow: "xs",
+      },
+    },
+
+    Input: {
+      defaultProps: {
+        radius: "md",
+        size: "md",
+      },
+
       styles: {
-        dot: {
-          backgroundColor: '#e53935',
+        input: {
+          borderColor: "#DEE2E6",
+          backgroundColor: "#FFFFFF",
+
+          "&:focus": {
+            borderColor: "#2F9D4E",
+          },
         },
       },
     },
+
+    TextInput: {
+      defaultProps: {
+        radius: "md",
+      },
+    },
+
+    Modal: {
+      defaultProps: {
+        radius: "lg",
+        centered: true,
+      },
+    },
+
+    Drawer: {
+      defaultProps: {
+        radius: "lg",
+      },
+    },
+
+    Badge: {
+      defaultProps: {
+        radius: "xl",
+        variant: "light",
+      },
+    },
+
+    NavLink: {
+      styles: {
+        root: {
+          borderRadius: rem(12),
+        },
+      },
+    },
+
+    ActionIcon: {
+      defaultProps: {
+        radius: "md",
+        variant: "subtle",
+      },
+    },
+
     Tooltip: {
-      defaultProps: { color: 'ifsc-green' },
+      defaultProps: {
+        radius: "md",
+        withArrow: true,
+      },
+    },
+  },
+
+  other: {
+    layout: {
+      sidebarWidth: 280,
+      headerHeight: 72,
+      mapControlsSize: 44,
+    },
+
+    map: {
+      pointSize: 18,
+      selectedPointSize: 24,
+      routeStrokeWidth: 6,
     },
   },
 });
-
-export default ifscTheme;
