@@ -1,13 +1,11 @@
-import { Button } from "@mantine/core";
-import Link from "next/link";
+import { FiltersCard } from "./components/filters-card";
 
 export default function Home() {
   return (
     <div>
-      <h1>Hello World</h1>
-      <Button>
-          Click
-      </Button>
+      <div className="my-8 mx-4">
+        <FiltersCard />
+      </div>
     </div>
   );
 }
