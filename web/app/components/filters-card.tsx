@@ -1,15 +1,15 @@
 "use client";
 
-import { Box, Divider, Flex, Input, List, Paper, Title } from "@mantine/core";
+import { Box, Divider, Flex, Input, List, Paper, Text } from "@mantine/core";
 
 export function FiltersCard() {
   return (
       <Paper shadow="md" radius="lg" display="inline-block" p="lg">
         <Flex direction="column">
-          <Title order={5} mb="md">Encontre um lugar</Title>
+          <Text size="lg" fw={600} mb="md">Encontre um lugar</Text>
           <Input placeholder="Procure um lugar..." />
           <Divider my="md" size="sm"/>
-          <Title order={6} mb="md">Categorias</Title>
+          <Text size="md" fw={500} mb="md">Categorias</Text>
           <List
             size="md"
             icon={
