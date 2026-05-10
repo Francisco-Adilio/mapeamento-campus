@@ -1,5 +1,6 @@
 import { Flex, Paper, Image, Box, ThemeIcon, Text, Button, Space } from "@mantine/core";
 import { IconMap } from "@tabler/icons-react"
+import { PlaceDrawer } from "./place-drawer";
 
 export function PlaceCard() {
   return (
@@ -20,9 +21,7 @@ export function PlaceCard() {
         <Space h="sm"/>
         <Text>Local de estudo e silêncio</Text>
         <Space h="sm"/>
-        <Button variant="filled" color="green" radius="sm" fullWidth>
-          Ver detalhes
-        </Button>
+        <PlaceDrawer />
         <Space h="sm"/>
         <Button variant="default" radius="sm" fullWidth>
           Ver rota  
