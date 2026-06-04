@@ -1,6 +1,6 @@
 "use client"
 
-import { ActionIcon, Box, Button, Center, Drawer, Flex, Tabs, Text, Title } from "@mantine/core";
+import { ActionIcon, Image, Button, Center, Drawer, Flex, Tabs, Text, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconShare, IconChevronLeft } from "@tabler/icons-react"
 
@@ -27,6 +27,8 @@ export function PlaceDrawer() {
           <Drawer.Body>
             <Title order={4}>Biblioteca</Title>
             <Text size="sm" color="green">Estudos</Text>
+            
+            <Image radius="md" my="md" mah="200px" src="https://diregional.com.br/files/42738/053ddec104a3e7da2401deee5365b510" alt="" />
 
             <Tabs>
               <Tabs.List>
