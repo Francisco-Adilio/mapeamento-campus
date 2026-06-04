@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useDrag, useScrollDirection } from '@mantine/hooks'
+import { LocationPinIcon } from './location-pin-icon'
 
 const INITIAL_VIEWBOX = { x: 0, y: 0, width: 1440, height: 810 }
 const MIN_ZOOM = 0.75
@@ -64,6 +65,10 @@ export function Map() {
     },
   )
 
+  function onClick() {
+    window.alert("Clicou")
+  }
+
   return (
     <div
       ref={dragRef}
@@ -86,6 +91,13 @@ export function Map() {
         style={{ display: 'block' }}
       >
         <image href="/campus.svg" x="0" y="0" width="1440" height="810" />
+        <g 
+          transform="translate(880, 640)"
+          onClick={onClick}  
+          cursor="pointer"
+        >
+         <LocationPinIcon /> 
+        </g>
       </svg>
     </div>
   )
