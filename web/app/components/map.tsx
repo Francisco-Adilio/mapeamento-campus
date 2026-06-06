@@ -3,13 +3,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDrag, useScrollDirection } from '@mantine/hooks'
 import { LocationPinIcon } from './location-pin-icon'
-import { PlaceDrawer } from './place-drawer'
+
+type MapProps = {
+  onPlaceCardOpen: () => void;
+  onPlaceCardClose: () => void;
+}
 
 const INITIAL_VIEWBOX = { x: 0, y: 0, width: 1440, height: 810 }
 const MIN_ZOOM = 0.75
 const MAX_ZOOM = 3
 
-export function Map() {
+export function Map(props: MapProps) {
   const direction = useScrollDirection()
   const [zoom, setZoom] = useState(1)
   const [viewBox, setViewBox] = useState(INITIAL_VIEWBOX)
@@ -65,6 +69,7 @@ export function Map() {
 
   const { ref: dragRef, active } = useDrag(
     (state) => {
+      props.onPlaceCardClose()
       if (state.first) {
         dragStartRef.current = { x: viewBoxRef.current.x, y: viewBoxRef.current.y }
       }
@@ -77,11 +82,10 @@ export function Map() {
     },
   )
 
-  const [drawerOpened, setDrawerOpened] = useState(false)
   const [pointId, setPointId] = useState<number>()
   function onLocationPinClick(id: number) {
     setPointId(id)
-    setDrawerOpened(true)
+    props.onPlaceCardOpen()
   }
 
   return (
@@ -118,7 +122,6 @@ export function Map() {
           )
         }
       </svg>
-      <PlaceDrawer opened={drawerOpened} onClose={() => setDrawerOpened(false)} />
     </div>
   )
 }

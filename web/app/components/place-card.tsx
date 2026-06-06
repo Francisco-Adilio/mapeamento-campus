@@ -5,9 +5,14 @@ import { IconMap } from "@tabler/icons-react"
 import { PlaceDrawer } from "./place-drawer";
 import { useState } from "react";
 
-export function PlaceCard() {
-  const [opened, setOpened] = useState(false)
+type PlaceCardProps = {
+  opened: boolean ;
+}
 
+export function PlaceCard(props: PlaceCardProps) {
+  const [drawerOpened, setDrawerOpened] = useState(false)
+
+  if (!props.opened) return null
   return (
     <Paper shadow="md" radius="lg" display="inline-block" p="md">
       <Flex direction="column">
@@ -26,10 +31,10 @@ export function PlaceCard() {
         <Space h="sm"/>
         <Text>Controle de entrada e saída</Text>
         <Space h="sm"/>
-        <Button onClick={() => setOpened(true)} variant="filled" color="green" radius="sm" fullWidth>
+        <Button onClick={() => setDrawerOpened(true)} variant="filled" color="green" radius="sm" fullWidth>
           Ver detalhes
         </Button>
-        <PlaceDrawer opened={opened} onClose={() => setOpened(false)} />
+        <PlaceDrawer opened={drawerOpened} onClose={() => setDrawerOpened(false)} />
         <Space h="sm"/>
         <Button variant="default" radius="sm" fullWidth>
           Ver rota  
