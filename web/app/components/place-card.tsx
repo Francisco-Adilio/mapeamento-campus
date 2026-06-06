@@ -1,8 +1,13 @@
+"use client"
+
 import { Flex, Paper, Image, Box, ThemeIcon, Text, Button, Space } from "@mantine/core";
 import { IconMap } from "@tabler/icons-react"
 import { PlaceDrawer } from "./place-drawer";
+import { useState } from "react";
 
 export function PlaceCard() {
+  const [opened, setOpened] = useState(false)
+
   return (
     <Paper shadow="md" radius="lg" display="inline-block" p="md">
       <Flex direction="column">
@@ -14,14 +19,17 @@ export function PlaceCard() {
           </ThemeIcon>
           <Space w="md"/>
           <Box>
-            <Text fw={700}>Biblioteca</Text>
-            <Text size="sm">Estudo</Text>
+            <Text fw={700}>Guarita</Text>
+            <Text size="sm">Segurança</Text>
           </Box>
         </Flex>
         <Space h="sm"/>
-        <Text>Local de estudo e silêncio</Text>
+        <Text>Controle de entrada e saída</Text>
         <Space h="sm"/>
-        <PlaceDrawer />
+        <Button onClick={() => setOpened(true)} variant="filled" color="green" radius="sm" fullWidth>
+          Ver detalhes
+        </Button>
+        <PlaceDrawer opened={opened} onClose={() => setOpened(false)} />
         <Space h="sm"/>
         <Button variant="default" radius="sm" fullWidth>
           Ver rota  

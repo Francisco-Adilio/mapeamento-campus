@@ -3,13 +3,17 @@
 import { ActionIcon, Image, Button, Center, Drawer, Flex, Tabs, Text, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconShare, IconChevronLeft } from "@tabler/icons-react"
+import { useState } from "react";
 
-export function PlaceDrawer() {
-  const [opened, {open, close}] = useDisclosure(false)
+type DrawerProps = {
+  opened: boolean;
+  onClose: () => void;
+}
 
+export function PlaceDrawer(props: DrawerProps) {
   return (
     <>
-      <Drawer.Root opened={opened} onClose={close} position="right">
+      <Drawer.Root opened={props.opened} onClose={props.onClose} position="right">
         <Drawer.Overlay />
         <Drawer.Content>
           <Drawer.Header>
@@ -58,10 +62,6 @@ export function PlaceDrawer() {
           </Drawer.Body>
         </Drawer.Content>
       </Drawer.Root>
-
-      <Button onClick={open} variant="filled" color="green" radius="sm" fullWidth>
-        Ver detalhes
-      </Button>
     </>
   )
 }

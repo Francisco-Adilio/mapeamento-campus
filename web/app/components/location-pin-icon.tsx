@@ -1,4 +1,4 @@
-export function LocationPinIcon({ size = 40 }) {
+export function LocationPinIcon({ size = 40, color = '#00B2A9' }) {
   return (
     <svg 
       xmlns="http://w3.org" 
@@ -29,7 +29,7 @@ export function LocationPinIcon({ size = 40 }) {
              C 25 62, 42 75, 50 80 
              C 58 75, 75 62, 75 50 
              C 75 35, 68 20, 50 20 Z" 
-          fill="#00B2A9" 
+          fill={color} 
         />
 
         {/* Center White Dot */}

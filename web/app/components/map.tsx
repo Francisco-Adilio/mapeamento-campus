@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDrag, useScrollDirection } from '@mantine/hooks'
 import { LocationPinIcon } from './location-pin-icon'
+import { PlaceDrawer } from './place-drawer'
 
 const INITIAL_VIEWBOX = { x: 0, y: 0, width: 1440, height: 810 }
 const MIN_ZOOM = 0.75
@@ -14,6 +15,17 @@ export function Map() {
   const [viewBox, setViewBox] = useState(INITIAL_VIEWBOX)
   const viewBoxRef = useRef(viewBox)
   const dragStartRef = useRef({ x: 0, y: 0 })
+
+  const points: {id: number, x: number, y: number, color?: string }[] = [
+    { id: 1, x: 880, y: 640, color: '#BF1234' },
+    { id: 2, x: 877, y: 480 },
+    { id: 3, x: 840, y: 520 },
+    { id: 4, x: 800, y: 510 },
+    { id: 5, x: 815, y: 410 },
+    { id: 6, x: 685, y: 440 },
+    { id: 7, x: 730, y: 420 },
+    { id: 8, x: 580, y: 330 },
+  ]
 
   useEffect(() => {
     viewBoxRef.current = viewBox
@@ -65,8 +77,11 @@ export function Map() {
     },
   )
 
-  function onClick() {
-    window.alert("Clicou")
+  const [drawerOpened, setDrawerOpened] = useState(false)
+  const [pointId, setPointId] = useState<number>()
+  function onLocationPinClick(id: number) {
+    setPointId(id)
+    setDrawerOpened(true)
   }
 
   return (
@@ -74,7 +89,6 @@ export function Map() {
       ref={dragRef}
       style={{
         position: 'fixed',
-        inset: 0,
         zIndex: 0,
         overflow: 'hidden',
         background: '#79b369',
@@ -91,14 +105,20 @@ export function Map() {
         style={{ display: 'block' }}
       >
         <image href="/campus.svg" x="0" y="0" width="1440" height="810" />
-        <g 
-          transform="translate(880, 640)"
-          onClick={onClick}  
-          cursor="pointer"
-        >
-         <LocationPinIcon /> 
-        </g>
+        {
+          points.map((point, key) => 
+            <g 
+              transform={`translate(${point.x}, ${point.y})`}
+              onClick={() => onLocationPinClick(point.id)}  
+              cursor="pointer"
+              key={key}
+            >
+              <LocationPinIcon color={point.color} /> 
+            </g>
+          )
+        }
       </svg>
+      <PlaceDrawer opened={drawerOpened} onClose={() => setDrawerOpened(false)} />
     </div>
   )
 }
