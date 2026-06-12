@@ -1,67 +1,159 @@
 "use client"
 
-import { ActionIcon, Image, Button, Center, Drawer, Flex, Tabs, Text, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { IconShare, IconChevronLeft } from "@tabler/icons-react"
-import { useState } from "react";
+import {
+  ActionIcon,
+  Image,
+  Button,
+  Center,
+  Drawer,
+  Flex,
+  Tabs,
+  Text,
+  Title,
+  Box // Adicionado Box para o container do carrossel
+} from "@mantine/core";
+import { Carousel } from "@mantine/carousel"; // Importado o Carrossel do Mantine
+
+import { IconShare, IconChevronLeft } from "@tabler/icons-react";
+
+// Importação obrigatória dos estilos do carrossel
+import '@mantine/carousel/styles.css';
+
+type Place = {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  details: string;
+  link?: string;
+  images: string[]; // Alterado para array de strings para bater com o PlaceCard
+};
 
 type DrawerProps = {
   opened: boolean;
   onClose: () => void;
-}
+  place: Place | null;
+};
 
 export function PlaceDrawer(props: DrawerProps) {
+  if (!props.place) return null;
+
   return (
-    <>
-      <Drawer.Root opened={props.opened} onClose={props.onClose} position="right">
-        <Drawer.Overlay />
-        <Drawer.Content>
-          <Drawer.Header>
-            <Flex>
-              <Center>
-                <Drawer.CloseButton icon={<IconChevronLeft />} />
-                <Drawer.Title>Voltar ao mapa</Drawer.Title>
-              </Center>
-            </Flex>
-            <ActionIcon>
-              <IconShare /> 
+    <Drawer.Root
+      opened={props.opened}
+      onClose={props.onClose}
+      position="right"
+      size="md"
+    >
+      <Drawer.Overlay />
+
+      <Drawer.Content>
+        <Drawer.Header>
+          <Flex justify="space-between" align="center" w="100%">
+            <Center>
+              <Drawer.CloseButton icon={<IconChevronLeft />} />
+              <Drawer.Title>Voltar ao mapa</Drawer.Title>
+            </Center>
+
+            <ActionIcon variant="subtle">
+              <IconShare />
             </ActionIcon>
-          </Drawer.Header>
+          </Flex>
+        </Drawer.Header>
 
-          <Drawer.Body>
-            <Title order={4}>Biblioteca</Title>
-            <Text size="sm" color="green">Estudos</Text>
+        <Drawer.Body
+          style={{
+            maxHeight: 'calc(100vh - 80px)',
+            overflowY: 'auto'
+          }}
+        >
+          <Title order={4}>
+            {props.place.name}
+          </Title>
+
+          <Text size="sm" c="green">
+            {props.place.category}
+          </Text>
+
+          {/* CARROSSEL NO TOPO DO DRAWER */}
+          <Box my="md">
+            <Carousel 
+              withIndicators 
+              loop 
+              align="start" 
+              slideGap="md"
+            >
+              {props.place.images?.map((url, index) => (
+                <Carousel.Slide key={index}>
+                  <Image
+                    radius="md"
+                    mah="250px"
+                    src={url}
+                    alt={`${props.place?.name} - Foto ${index + 1}`}
+                    fit="cover"
+                  />
+                </Carousel.Slide>
+              ))}
+            </Carousel>
+          </Box>
+
+          <Tabs defaultValue="informacoes">
+            <Tabs.List>
+              <Tabs.Tab value="informacoes">
+                Informações
+              </Tabs.Tab>
+
+              <Tabs.Tab value="galeria">
+                Galeria
+              </Tabs.Tab>
+            </Tabs.List>
+
+            <Tabs.Panel value="informacoes" pt="md">
+  {/* O whiteSpace: 'pre-line' garante que os parágrafos apareçam certinhos na tela */}
+  <Text style={{ whiteSpace: 'pre-line' }}>
+    {props.place.details}
+  </Text>
+  
+  {/* ... resto do código do botão se houver ... */}
+</Tabs.Panel>
+
+              {props.place.link && (
+                <Button
+                  component="a"
+                  href={props.place.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="green"
+                  mt="md"
+                >
+                  Saiba mais sobre o projeto
+                </Button>
+              )}
             
-            <Image radius="md" my="md" mah="200px" src="https://diregional.com.br/files/42738/053ddec104a3e7da2401deee5365b510" alt="" />
 
-            <Tabs>
-              <Tabs.List>
-                <Tabs.Tab value="gallery">
-                  Gallery
-                </Tabs.Tab>
-                <Tabs.Tab value="messages">
-                  Messages
-                </Tabs.Tab>
-                <Tabs.Tab value="settings">
-                  Settings
-                </Tabs.Tab>
-              </Tabs.List>
+            <Tabs.Panel value="localizacao" pt="md">
+              <Text>
+                Local selecionado: {props.place.name}
+              </Text>
+            </Tabs.Panel>
 
-              <Tabs.Panel value="gallery">
-                Gallery tab content
-              </Tabs.Panel>
-
-              <Tabs.Panel value="messages">
-                Messages tab content
-              </Tabs.Panel>
-
-              <Tabs.Panel value="settings">
-                Settings tab content
-              </Tabs.Panel>
-            </Tabs>
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Root>
-    </>
-  )
+            {/* ABA GALERIA EXIBINDO TODAS AS FOTOS EM LISTA */}
+            <Tabs.Panel value="galeria" pt="md">
+              <Flex direction="column" gap="md">
+                {props.place.images?.map((url, index) => (
+                  <Image
+                    key={index}
+                    radius="md"
+                    src={url}
+                    alt={`${props.place?.name} Galeria ${index + 1}`}
+                    fit="cover"
+                  />
+                ))}
+              </Flex>
+            </Tabs.Panel>
+          </Tabs>
+        </Drawer.Body>
+      </Drawer.Content>
+    </Drawer.Root>
+  );
 }
