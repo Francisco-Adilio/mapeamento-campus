@@ -396,6 +396,7 @@ F67 - sala de professores`,
   })
 
   const handleSvgClick = (event: MouseEvent) => {
+    if(!event.ctrlKey) return
     const svg = svgRef.current;
     if (!svg) return;
 
