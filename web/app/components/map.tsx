@@ -294,8 +294,98 @@ export const connections: Connection[] = [
       { x1: 917, y1: 671, x2: 955, y2: 680 },
       { x1: 955, y1: 680, x2: 936, y2: 723 },
     ]
+  },
+  {//bloco C a bloco D
+    id1: 5,
+    id2: 6,
+    distance: 20,
+    lines: [
+      { x1: 883, y1: 540, x2: 848, y2: 529 },
+      { x1: 848, y1: 530, x2: 866, y2: 511 },
+      { x1: 866, y1: 511, x2: 744, y2: 471 },
+      { x1: 719, y1: 453, x2: 744, y2: 471 },
+      { x1: 719, y1: 453, x2: 705, y2: 465 },
+    ]
+  },
+  {//bloco C a bloco D
+    id1: 5,
+    id2: 7,
+    distance: 20,
+    lines: [
+      { x1: 883, y1: 540, x2: 848, y2: 529 },
+      { x1: 848, y1: 530, x2: 866, y2: 511 },
+      { x1: 866, y1: 511, x2: 744, y2: 471 },
+      { x1: 719, y1: 453, x2: 744, y2: 471 },
+      { x1: 719, y1: 453, x2: 727, y2: 447 },
+    ]
+  },
+  {//bloco D a bloco F
+    id1: 6,
+    id2: 8,
+    distance: 20,
+    lines: [
+      { x1: 708, y1: 464, x2: 682, y2: 456 },
+      { x1: 687, y1: 450, x2: 682, y2: 456 },
+      { x1: 687, y1: 450, x2: 679, y2: 448 },
+      { x1: 686, y1: 441, x2: 679, y2: 448 },
+      { x1: 647, y1: 427, x2: 686, y2: 441 },
+    ]
+  },
+  {//bloco F a IF horta
+    id1: 8,
+    id2: 9,
+    distance: 20,
+    lines: [
+      { x1: 647, y1: 427, x2: 658, y2: 413 },
+      { x1: 549, y1: 309, x2: 658, y2: 413 },
+      
+    ]
+  },
+  {//bloco F a Redário
+    id1: 8,
+    id2: 15,
+    distance: 20,
+    lines: [
+      { x1: 647, y1: 427, x2: 592, y2: 458 },
+      { x1: 568, y1: 453, x2: 592, y2: 458 },
+      
+      
+    ]
+  },
+  {//Vermicompostagem a Biodigestor
+    id1: 10,
+    id2: 14,
+    distance: 20,
+    lines: [
+      { x1: 611, y1: 479, x2: 655, y2: 465 },
+      
+      
+    ]
+  },
+    {//Biodigestor a bloco D
+    id1: 10,
+    id2: 14,
+    distance: 20,
+    lines: [
+      { x1: 676, y1: 447, x2: 655, y2: 465 },
+      { x1: 676, y1: 447, x2: 687, y2: 451 },
+      { x1: 680, y1: 457, x2: 687, y2: 451 },
+      { x1: 680, y1: 457, x2: 704, y2: 462 },
+      
+      
+    ]
+  },
+  {//Bloco B a container
+    id1: 2,
+    id2: 4,
+    distance: 20,
+    lines: [
+      { x1: 879, y1: 539, x2: 835, y2: 525 },
+      { x1: 815, y1: 543, x2: 835, y2: 525 },
+    ]
   }
-]
+
+  ]
 
 export function Map(props: MapProps) {
   const [zoom, setZoom] = useState(1)
