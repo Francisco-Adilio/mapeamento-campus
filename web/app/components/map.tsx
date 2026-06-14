@@ -1,10 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 import { useDrag } from '@mantine/hooks'
 import { LocationPinIcon } from './location-pin-icon'
 
-// Alterado o tipo para aceitar um array de strings
 type Place = {
   id: number
   x: number
@@ -15,7 +14,21 @@ type Place = {
   description: string
   details: string
   link?: string
-  images: string[] // Mudança feita aqui para bater com o Card e o Drawer
+  images: string[]
+}
+
+type Connection = {
+  id1: number;
+  id2: number;
+  distance: number;
+  lines: ConnectionLine[];
+}
+
+type ConnectionLine = {
+  x1: number;
+  x2: number;
+  y1: number;
+  y2: number;
 }
 
 type MapProps = {
@@ -33,6 +46,7 @@ export function Map(props: MapProps) {
   const viewBoxRef = useRef(viewBox)
   const dragStartRef = useRef({ x: 0, y: 0 })
   const mapRef = useRef<HTMLDivElement>(null)
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
   // Atualizado todos os pontos de image para images: [ ... ]
   const points: Place[] = [
@@ -295,6 +309,27 @@ F67 - sala de professores`,
     },
   ]
 
+  const connections: Connection[] = [
+    {
+      id1: 1,
+      id2: 2,
+      distance: 63,
+      lines: [
+        { x1: 917, y1: 671, x2: 966, y2: 569 },
+        { x1: 967 , y1: 571, x2: 883, y2: 542 },
+      ]
+    },
+    {
+      id1: 1,
+      id2: 11,
+      distance: 20,
+      lines: [
+        { x1: 917, y1: 671, x2: 955, y2: 680 },
+        { x1: 955, y1: 680, x2: 936, y2: 723 },
+      ]
+    }
+  ]
+
   useEffect(() => {
     viewBoxRef.current = viewBox
   }, [viewBox])
@@ -360,6 +395,32 @@ F67 - sala de professores`,
     }))
   })
 
+  const handleSvgClick = (event: MouseEvent) => {
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    // 1. Create a native SVG point object
+    const point = svg.createSVGPoint();
+    
+    // 2. Assign the screen coordinates (clientX/Y) to the point
+    point.x = event.clientX;
+    point.y = event.clientY;
+
+    // 3. Get the transformation matrix from screen space to SVG space
+    const targetMatrix = svg.getScreenCTM()?.inverse();
+
+    if (targetMatrix) {
+      // 4. Transform the screen point into the local viewBox coordinates
+      const svgPoints = point.matrixTransform(targetMatrix);
+      
+      // These coordinates now perfectly match your dynamic viewBox scale!
+      const actualX = svgPoints.x;
+      const actualY = svgPoints.y;
+
+      alert(`ViewBox Local Position - X: ${actualX.toFixed(0)}, Y: ${actualY.toFixed(0)}`);
+    }
+  };
+
   function onLocationPinClick(place: Place) {
     props.onPlaceCardOpen(place)
   }
@@ -381,11 +442,13 @@ F67 - sala de professores`,
       }}
     >
       <svg
+        ref={svgRef}
         viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
         preserveAspectRatio="xMidYMid meet"
         width="1440"
         height="810"
         style={{ display: 'block' }}
+        onClick={handleSvgClick}
       >
         <image href="/campus.svg" x="0" y="0" width="1440" height="810" />
 
@@ -399,6 +462,13 @@ F67 - sala de professores`,
             <LocationPinIcon color={point.color} />
           </g>
         ))}
+        <>
+          {connections.map((connection) => 
+            connection.lines.map((line, key) => (
+              <line x1={line.x1} x2={line.x2} y1={line.y1} y2={line.y2} key={key} stroke='red' strokeWidth="5px"/>
+            ))
+          )}
+        </>
       </svg>
     </div>
   )
