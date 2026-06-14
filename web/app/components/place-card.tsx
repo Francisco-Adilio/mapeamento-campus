@@ -8,26 +8,31 @@ import { useState } from "react";
 
 // Importação obrigatória dos estilos do carrossel do Mantine
 import '@mantine/carousel/styles.css';
-
-type Place = {
-  id: number;
-  name: string;
-  category: string;
-  description: string;
-  details: string;
-  link: string;
-  images: string[]; // Alterado para um array de strings para conter várias fotos
-};
+import { ReadonlyURLSearchParams, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
+import { Place } from "../models/place.model";
+import { findShortestPath } from "../utils/findShortestPath";
 
 type PlaceCardProps = {
   opened: boolean;
   place: Place | null;
+  current: number | null
 };
 
 export function PlaceCard(props: PlaceCardProps) {
   const [drawerOpened, setDrawerOpened] = useState(false);
 
+
   if (!props.opened || !props.place) return null;
+
+  function onRoutesClick() {
+    if(!props.place) return
+    const shortestPath = findShortestPath(props.current || 1, props.place.id)
+    if(!shortestPath) {
+      
+    }
+    const { path, totalDistance } = shortestPath
+  }
 
   return (
     <Paper
@@ -104,7 +109,7 @@ export function PlaceCard(props: PlaceCardProps) {
 
         <Space h="sm" />
 
-        <Button variant="default" radius="sm" fullWidth>
+        <Button variant="default" radius="sm" fullWidth onClick={onRoutesClick}>
           Ver rota
         </Button>
       </Flex>

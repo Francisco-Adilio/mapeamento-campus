@@ -5,25 +5,21 @@ import { FiltersCard } from "./components/filters-card";
 import { PlaceCard } from "./components/place-card";
 import { Map } from "./components/map";
 import { useState } from "react";
-
-type Place = {
-  id: number;
-  name: string;
-  category: string;
-  description: string;
-  details: string;
-  link?: string;
-  image: string;
-};
+import { useSearchParams, usePathname } from "next/navigation";
+import { useRouter } from "next/router";
+import { Place } from "./models/place.model";
 
 export default function Home() {
   const [placeCardOpened, setPlaceCardOpened] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
+  const searchParams = useSearchParams()
+  const currentSearchParam = searchParams.get('current')
+  const current = currentSearchParam ? parseInt(currentSearchParam) : null
+
   return (
     <Box pos="relative" h="100vh">
       <Map
-      
         onPlaceCardOpen={(place) => {
           setSelectedPlace(place);
           setPlaceCardOpened(true);
@@ -31,6 +27,7 @@ export default function Home() {
         onPlaceCardClose={() => {
           setPlaceCardOpened(false);
         }}
+        current={current}
       />
 
       <Box pos="absolute" mx="lg" my="md">
@@ -41,6 +38,7 @@ export default function Home() {
         <PlaceCard
           opened={placeCardOpened}
           place={selectedPlace}
+          current={current}
         />
       </Box>
     </Box>
