@@ -1,6 +1,6 @@
 'use client'
 
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { useDrag } from '@mantine/hooks'
 import { LocationPinIcon } from './location-pin-icon'
 import { Place } from '../models/place.model'
@@ -10,6 +10,7 @@ type MapProps = {
   onPlaceCardOpen: (place: Place) => void;
   onPlaceCardClose: () => void;
   current: number | null;
+  pathPoints: number[]
 }
 
 const INITIAL_VIEWBOX = { x: 0, y: 0, width: 1440, height: 810 }
@@ -385,17 +386,18 @@ export const connections: Connection[] = [
     ]
   }
 
-  ]
+]
 
 export function Map(props: MapProps) {
   const [zoom, setZoom] = useState(1)
   const [viewBox, setViewBox] = useState(INITIAL_VIEWBOX)
   const viewBoxRef = useRef(viewBox)
   const dragStartRef = useRef({ x: 0, y: 0 })
+
   const mapRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement | null>(null);
 
-
+  
   useEffect(() => {
     viewBoxRef.current = viewBox
   }, [viewBox])
@@ -443,6 +445,10 @@ export function Map(props: MapProps) {
       mapElement.removeEventListener('wheel', onWheel)
     }
   }, [zoom])
+
+  const connectionsToShow = useMemo(() => {
+    return connections.filter(c => props.pathPoints.includes(c.id1) && props.pathPoints.includes(c.id2))
+  }, [props.pathPoints])
 
   const { ref: dragRef, active } = useDrag((state) => {
     props.onPlaceCardClose()
@@ -530,7 +536,7 @@ export function Map(props: MapProps) {
           </g>
         ))}
         <>
-          {connections.map((connection) => 
+          {connectionsToShow.map((connection) => 
             connection.lines.map((line, key) => (
               <line x1={line.x1} x2={line.x2} y1={line.y1} y2={line.y2} key={key} stroke='red' strokeWidth="5px"/>
             ))

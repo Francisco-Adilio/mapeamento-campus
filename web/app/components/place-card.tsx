@@ -17,6 +17,7 @@ type PlaceCardProps = {
   opened: boolean;
   place: Place | null;
   current: number | null
+  onSetPathPoints: (points: number[]) => void;
 };
 
 export function PlaceCard(props: PlaceCardProps) {
@@ -29,9 +30,10 @@ export function PlaceCard(props: PlaceCardProps) {
     if(!props.place) return
     const shortestPath = findShortestPath(props.current || 1, props.place.id)
     if(!shortestPath) {
-      
+      return
     }
     const { path, totalDistance } = shortestPath
+    props.onSetPathPoints(path)
   }
 
   return (

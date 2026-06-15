@@ -17,6 +17,8 @@ export default function Home() {
   const currentSearchParam = searchParams.get('current')
   const current = currentSearchParam ? parseInt(currentSearchParam) : null
 
+  const [pathPoints, setPathPoints] = useState<number[]>([])
+
   return (
     <Box pos="relative" h="100vh">
       <Map
@@ -28,6 +30,7 @@ export default function Home() {
           setPlaceCardOpened(false);
         }}
         current={current}
+        pathPoints={pathPoints}
       />
 
       <Box pos="absolute" mx="lg" my="md">
@@ -39,6 +42,7 @@ export default function Home() {
           opened={placeCardOpened}
           place={selectedPlace}
           current={current}
+          onSetPathPoints={(points) => setPathPoints(points)}
         />
       </Box>
     </Box>
