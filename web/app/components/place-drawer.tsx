@@ -12,12 +12,7 @@ import {
   Title,
   Box // Adicionado Box para o container do carrossel
 } from "@mantine/core";
-import { Carousel } from "@mantine/carousel"; // Importado o Carrossel do Mantine
-
 import { IconShare, IconChevronLeft } from "@tabler/icons-react";
-
-// Importação obrigatória dos estilos do carrossel
-import '@mantine/carousel/styles.css';
 
 type Place = {
   id: number;

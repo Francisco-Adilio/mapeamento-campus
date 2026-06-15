@@ -5,11 +5,11 @@ import { useDrag } from '@mantine/hooks'
 import { LocationPinIcon } from './location-pin-icon'
 import { Place } from '../models/place.model'
 import { Connection } from '../models/connection.model'
+import { useSearchParams } from 'next/navigation'
 
 type MapProps = {
   onPlaceCardOpen: (place: Place) => void;
   onPlaceCardClose: () => void;
-  current: number | null;
   pathPoints: number[]
 }
 
@@ -397,6 +397,9 @@ export function Map(props: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement | null>(null);
 
+  const searchParams = useSearchParams()
+  const currentSearchParam = searchParams.get('current')
+  const current = currentSearchParam ? parseInt(currentSearchParam) : null
   
   useEffect(() => {
     viewBoxRef.current = viewBox
@@ -532,7 +535,7 @@ export function Map(props: MapProps) {
             onClick={() => onLocationPinClick(point)}
             cursor="pointer"
           >
-            <LocationPinIcon color={point.color} />
+            <LocationPinIcon color={point.color} isHere={current === point.id} />
           </g>
         ))}
         <>

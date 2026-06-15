@@ -1,38 +1,37 @@
 "use client"
 
 import { Flex, Paper, Image, Box, ThemeIcon, Text, Button, Space } from "@mantine/core";
-import { Carousel } from "@mantine/carousel"; // Importamos o Carrossel do Mantine
 import { IconMap } from "@tabler/icons-react";
 import { PlaceDrawer } from "./place-drawer";
 import { useState } from "react";
 
 // Importação obrigatória dos estilos do carrossel do Mantine
-import '@mantine/carousel/styles.css';
-import { ReadonlyURLSearchParams, usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { Place } from "../models/place.model";
 import { findShortestPath } from "../utils/findShortestPath";
+import { useSearchParams } from "next/navigation";
 
 type PlaceCardProps = {
   opened: boolean;
   place: Place | null;
-  current: number | null
   onSetPathPoints: (points: number[]) => void;
 };
 
 export function PlaceCard(props: PlaceCardProps) {
   const [drawerOpened, setDrawerOpened] = useState(false);
 
+  const searchParams = useSearchParams()
+  const currentSearchParam = searchParams.get('current')
+  const current = currentSearchParam ? parseInt(currentSearchParam) : null
 
   if (!props.opened || !props.place) return null;
 
   function onRoutesClick() {
     if(!props.place) return
-    const shortestPath = findShortestPath(props.current || 1, props.place.id)
+    const shortestPath = findShortestPath(current || 1, props.place.id)
     if(!shortestPath) {
       return
     }
-    const { path, totalDistance } = shortestPath
+    const { path } = shortestPath
     props.onSetPathPoints(path)
   }
 
