@@ -75,26 +75,14 @@ export function PlaceDrawer(props: DrawerProps) {
             {props.place.category}
           </Text>
 
-          {/* CARROSSEL NO TOPO DO DRAWER */}
           <Box my="md">
-            <Carousel 
-              withIndicators 
-              loop 
-              align="start" 
-              slideGap="md"
-            >
-              {props.place.images?.map((url, index) => (
-                <Carousel.Slide key={index}>
-                  <Image
-                    radius="md"
-                    mah="250px"
-                    src={url}
-                    alt={`${props.place?.name} - Foto ${index + 1}`}
-                    fit="cover"
-                  />
-                </Carousel.Slide>
-              ))}
-            </Carousel>
+            <Image
+              radius="md"
+              mah="250px"
+              src={props.place.images[0]}
+              alt={`${props.place?.name} - Foto da capa`}
+              fit="cover"
+            />
           </Box>
 
           <Tabs defaultValue="informacoes">

@@ -50,26 +50,14 @@ export function PlaceCard(props: PlaceCardProps) {
     >
       <Flex direction="column">
         
-        {/* CARROSSEL SUBSTITUINDO A IMAGEM ESTÁTICA */}
         <Box maw="320px" w="100%">
-          <Carousel 
-            withIndicators // Adiciona as bolinhas de paginação embaixo
-            loop           // Faz o carrossel voltar ao início ao chegar no fim
-            align="start"
-            slideGap="md"
-          >
-            {props.place.images?.map((url, index) => (
-              <Carousel.Slide key={index}>
-                <Image
-                  radius="md"
-                  src={url}
-                  alt={`${props.place?.name} - Foto ${index + 1}`}
-                  height={200} // Altura fixa para as imagens ficarem alinhadas
-                  fit="cover"  // Garante que a imagem preencha o espaço sem distorcer
-                />
-              </Carousel.Slide>
-            ))}
-          </Carousel>
+          <Image
+            radius="md"
+            src={props.place.images[0]}
+            alt={`${props.place?.name} - Foto da capa`}
+            mah={200} // Altura fixa para as imagens ficarem alinhadas
+            fit="cover"  // Garante que a imagem preencha o espaço sem distorcer
+          />
         </Box>
 
         <Space h="md" />

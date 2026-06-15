@@ -33,9 +33,9 @@ export default function Home() {
         pathPoints={pathPoints}
       />
 
-      <Box pos="absolute" mx="lg" my="md">
+      {/* <Box pos="absolute" mx="lg" my="md">
         <FiltersCard />
-      </Box>
+      </Box> */}
 
       <Box pos="absolute" right={0} top={0} mx="lg" my="md">
         <PlaceCard
