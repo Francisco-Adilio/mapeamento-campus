@@ -396,6 +396,7 @@ export function Map(props: MapProps) {
   const dragStartRef = useRef({ x: 0, y: 0 })
   const pinchStartDistanceRef = useRef(0)
   const pinchStartZoomRef = useRef(1)
+  const pinchStartViewBoxRef = useRef({ x: 0, y: 0, width: 0, height: 0 })
 
   const mapRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -469,6 +470,7 @@ export function Map(props: MapProps) {
         // Salva nas referências para persistirem durante o movimento
         pinchStartDistanceRef.current = getDistance(t1, t2)
         pinchStartZoomRef.current = zoomRef.current
+        pinchStartViewBoxRef.current = { ...viewBoxRef.current }
       }
     }
 
@@ -491,8 +493,9 @@ export function Map(props: MapProps) {
         )
 
         const currentViewBox = viewBoxRef.current
-        const currentZoom = zoomRef.current
-        const zoomRatio = currentZoom / nextZoom
+        const zoomRatio = pinchStartZoomRef.current / nextZoom
+
+        const startViewBox = pinchStartViewBoxRef.current
 
         const rect = mapElement.getBoundingClientRect()
         const midpoint = getMidpoint(t1, t2)
@@ -500,16 +503,18 @@ export function Map(props: MapProps) {
         const pointerX = (midpoint.x - rect.left) / rect.width
         const pointerY = (midpoint.y - rect.top) / rect.height
 
-        const nextWidth = currentViewBox.width * zoomRatio
-        const nextHeight = currentViewBox.height * zoomRatio
+        const nextWidth = startViewBox.width * zoomRatio
+        const nextHeight = startViewBox.height * zoomRatio
 
-        setZoom(nextZoom)
-        setViewBox({
-          x: currentViewBox.x + (currentViewBox.width - nextWidth) * pointerX,
-          y: currentViewBox.y + (currentViewBox.height - nextHeight) * pointerY,
-          width: nextWidth,
-          height: nextHeight,
-        })
+        if(zoomRef.current !== nextZoom) {
+          setZoom(nextZoom)
+          setViewBox({
+            x: currentViewBox.x + (currentViewBox.width - nextWidth) * pointerX,
+            y: currentViewBox.y + (currentViewBox.height - nextHeight) * pointerY,
+            width: nextWidth,
+            height: nextHeight,
+          })
+        }
       }
     }
 
