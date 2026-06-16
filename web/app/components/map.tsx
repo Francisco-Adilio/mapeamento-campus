@@ -409,7 +409,7 @@ export function Map(props: MapProps) {
     const mapElement = mapRef.current
 
     if (!mapElement) return
-
+    // Wheel zoom (desktop)
     const onWheel = (event: WheelEvent) => {
       event.preventDefault()
 
@@ -442,10 +442,83 @@ export function Map(props: MapProps) {
       })
     }
 
+    // Touch pinch zoom (mobile)
+    let pinchStartDistance = 0
+    let pinchStartZoom = zoom
+    let pinchCenter = { x: 0, y: 0 }
+
+    const getDistance = (t1: Touch, t2: Touch) => {
+      const dx = t2.clientX - t1.clientX
+      const dy = t2.clientY - t1.clientY
+      return Math.hypot(dx, dy)
+    }
+
+    const getMidpoint = (t1: Touch, t2: Touch) => ({
+      x: (t1.clientX + t2.clientX) / 2,
+      y: (t1.clientY + t2.clientY) / 2,
+    })
+
+    const onTouchStart = (ev: TouchEvent) => {
+      if (ev.touches.length === 2) {
+        ev.preventDefault()
+        const [t1, t2] = [ev.touches[0], ev.touches[1]]
+        pinchStartDistance = getDistance(t1, t2)
+        pinchStartZoom = zoom
+        pinchCenter = getMidpoint(t1, t2)
+      }
+    }
+
+    const onTouchMove = (ev: TouchEvent) => {
+      if (ev.touches.length === 2) {
+        ev.preventDefault()
+        const [t1, t2] = [ev.touches[0], ev.touches[1]]
+        const distance = getDistance(t1, t2)
+        if (pinchStartDistance === 0) return
+
+        const scale = distance / pinchStartDistance
+        const nextZoom = Math.min(
+          MAX_ZOOM,
+          Math.max(MIN_ZOOM, pinchStartZoom * scale)
+        )
+
+        const currentViewBox = viewBoxRef.current
+        const zoomRatio = pinchStartZoom / nextZoom
+
+        const rect = mapElement.getBoundingClientRect()
+        const midpoint = getMidpoint(t1, t2)
+
+        const pointerX = (midpoint.x - rect.left) / rect.width
+        const pointerY = (midpoint.y - rect.top) / rect.height
+
+        const nextWidth = currentViewBox.width * zoomRatio
+        const nextHeight = currentViewBox.height * zoomRatio
+
+        setZoom(nextZoom)
+        setViewBox({
+          x: currentViewBox.x + (currentViewBox.width - nextWidth) * pointerX,
+          y: currentViewBox.y + (currentViewBox.height - nextHeight) * pointerY,
+          width: nextWidth,
+          height: nextHeight,
+        })
+      }
+    }
+
+    const onTouchEnd = (ev: TouchEvent) => {
+      if (ev.touches.length < 2) {
+        pinchStartDistance = 0
+      }
+    }
+
     mapElement.addEventListener('wheel', onWheel, { passive: false })
+    mapElement.addEventListener('touchstart', onTouchStart, { passive: false })
+    mapElement.addEventListener('touchmove', onTouchMove, { passive: false })
+    mapElement.addEventListener('touchend', onTouchEnd)
 
     return () => {
       mapElement.removeEventListener('wheel', onWheel)
+      mapElement.removeEventListener('touchstart', onTouchStart)
+      mapElement.removeEventListener('touchmove', onTouchMove)
+      mapElement.removeEventListener('touchend', onTouchEnd)
     }
   }, [zoom])
 
