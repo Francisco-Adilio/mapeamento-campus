@@ -480,10 +480,13 @@ export function Map(props: MapProps) {
         const distance = getDistance(t1, t2)
         if (pinchStartDistanceRef.current === 0) return
 
-        const scale = distance / pinchStartDistanceRef.current
+        const rawScale = distance / pinchStartDistanceRef.current
+        const sensitivity = 0.35 
+        const smoothedScale = 1 + (rawScale - 1) * sensitivity
+
         const nextZoom = Math.min(
           MAX_ZOOM,
-          Math.max(MIN_ZOOM, pinchStartZoomRef.current * scale)
+          Math.max(MIN_ZOOM, pinchStartZoomRef.current * smoothedScale)
         )
 
         const currentViewBox = viewBoxRef.current
