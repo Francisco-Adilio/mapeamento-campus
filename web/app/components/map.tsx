@@ -13,7 +13,7 @@ type MapProps = {
   pathPoints: number[]
 }
 
-const INITIAL_VIEWBOX = { x: 0, y: 0, width: 1440, height: 810 }
+const INITIAL_VIEWBOX = { x: 125, y: 217, width: 1440, height: 810 }
 const MIN_ZOOM = 0.75
 const MAX_ZOOM = 3
 
@@ -399,7 +399,7 @@ export function Map(props: MapProps) {
 
   const searchParams = useSearchParams()
   const currentSearchParam = searchParams.get('current')
-  const current = currentSearchParam ? parseInt(currentSearchParam) : null
+  const current = currentSearchParam ? parseInt(currentSearchParam) : 1
   
   useEffect(() => {
     viewBoxRef.current = viewBox
