@@ -484,13 +484,15 @@ export function Map(props: MapProps) {
         const sensitivity = 0.35 
         const smoothedScale = 1 + (rawScale - 1) * sensitivity
 
+        const targetZoom = pinchStartZoomRef.current * smoothedScale
         const nextZoom = Math.min(
           MAX_ZOOM,
-          Math.max(MIN_ZOOM, pinchStartZoomRef.current * smoothedScale)
+          Math.max(MIN_ZOOM, targetZoom)
         )
 
         const currentViewBox = viewBoxRef.current
-        const zoomRatio = pinchStartZoomRef.current / nextZoom
+        const currentZoom = zoomRef.current
+        const zoomRatio = currentZoom / nextZoom
 
         const rect = mapElement.getBoundingClientRect()
         const midpoint = getMidpoint(t1, t2)
