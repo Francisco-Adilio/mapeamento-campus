@@ -392,7 +392,10 @@ export function Map(props: MapProps) {
   const [zoom, setZoom] = useState(1)
   const [viewBox, setViewBox] = useState(INITIAL_VIEWBOX)
   const viewBoxRef = useRef(viewBox)
+  const zoomRef = useRef(zoom)
   const dragStartRef = useRef({ x: 0, y: 0 })
+  const pinchStartDistanceRef = useRef(0)
+  const pinchStartZoomRef = useRef(1)
 
   const mapRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -402,27 +405,32 @@ export function Map(props: MapProps) {
   const current = currentSearchParam ? parseInt(currentSearchParam) : 1
   
   useEffect(() => {
+    zoomRef.current = zoom
+  }, [zoom])
+
+  useEffect(() => {
     viewBoxRef.current = viewBox
   }, [viewBox])
 
   useEffect(() => {
     const mapElement = mapRef.current
-
     if (!mapElement) return
-    // Wheel zoom (desktop)
+
+    // WHEEL ZOOM (DESKTOP)
     const onWheel = (event: WheelEvent) => {
       event.preventDefault()
 
       const wheelDirection = event.deltaY < 0 ? 'up' : 'down'
       const shouldZoomIn = wheelDirection === 'up'
 
+      const currentZoom = zoomRef.current
       const nextZoom = Math.min(
         MAX_ZOOM,
-        Math.max(MIN_ZOOM, zoom + (shouldZoomIn ? 0.12 : -0.12))
+        Math.max(MIN_ZOOM, currentZoom + (shouldZoomIn ? 0.12 : -0.12))
       )
 
       const currentViewBox = viewBoxRef.current
-      const zoomRatio = zoom / nextZoom
+      const zoomRatio = currentZoom / nextZoom
 
       const rect = mapElement.getBoundingClientRect()
 
@@ -433,7 +441,6 @@ export function Map(props: MapProps) {
       const nextHeight = currentViewBox.height * zoomRatio
 
       setZoom(nextZoom)
-
       setViewBox({
         x: currentViewBox.x + (currentViewBox.width - nextWidth) * pointerX,
         y: currentViewBox.y + (currentViewBox.height - nextHeight) * pointerY,
@@ -442,11 +449,7 @@ export function Map(props: MapProps) {
       })
     }
 
-    // Touch pinch zoom (mobile)
-    let pinchStartDistance = 0
-    let pinchStartZoom = zoom
-    let pinchCenter = { x: 0, y: 0 }
-
+    // TOUCH PINCH ZOOM (MOBILE)
     const getDistance = (t1: Touch, t2: Touch) => {
       const dx = t2.clientX - t1.clientX
       const dy = t2.clientY - t1.clientY
@@ -462,9 +465,10 @@ export function Map(props: MapProps) {
       if (ev.touches.length === 2) {
         ev.preventDefault()
         const [t1, t2] = [ev.touches[0], ev.touches[1]]
-        pinchStartDistance = getDistance(t1, t2)
-        pinchStartZoom = zoom
-        pinchCenter = getMidpoint(t1, t2)
+        
+        // Salva nas referências para persistirem durante o movimento
+        pinchStartDistanceRef.current = getDistance(t1, t2)
+        pinchStartZoomRef.current = zoomRef.current
       }
     }
 
@@ -472,17 +476,18 @@ export function Map(props: MapProps) {
       if (ev.touches.length === 2) {
         ev.preventDefault()
         const [t1, t2] = [ev.touches[0], ev.touches[1]]
+        
         const distance = getDistance(t1, t2)
-        if (pinchStartDistance === 0) return
+        if (pinchStartDistanceRef.current === 0) return
 
-        const scale = distance / pinchStartDistance
+        const scale = distance / pinchStartDistanceRef.current
         const nextZoom = Math.min(
           MAX_ZOOM,
-          Math.max(MIN_ZOOM, pinchStartZoom * scale)
+          Math.max(MIN_ZOOM, pinchStartZoomRef.current * scale)
         )
 
         const currentViewBox = viewBoxRef.current
-        const zoomRatio = pinchStartZoom / nextZoom
+        const zoomRatio = pinchStartZoomRef.current / nextZoom
 
         const rect = mapElement.getBoundingClientRect()
         const midpoint = getMidpoint(t1, t2)
@@ -505,7 +510,7 @@ export function Map(props: MapProps) {
 
     const onTouchEnd = (ev: TouchEvent) => {
       if (ev.touches.length < 2) {
-        pinchStartDistance = 0
+        pinchStartDistanceRef.current = 0
       }
     }
 
@@ -520,7 +525,8 @@ export function Map(props: MapProps) {
       mapElement.removeEventListener('touchmove', onTouchMove)
       mapElement.removeEventListener('touchend', onTouchEnd)
     }
-  }, [zoom])
+  }, [])
+
 
   const connectionsToShow = useMemo(() => {
     return connections.filter(c => props.pathPoints.includes(c.id1) && props.pathPoints.includes(c.id2))
