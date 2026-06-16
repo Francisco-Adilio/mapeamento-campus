@@ -397,6 +397,7 @@ export function Map(props: MapProps) {
   const pinchStartDistanceRef = useRef(0)
   const pinchStartZoomRef = useRef(1)
   const pinchStartViewBoxRef = useRef({ x: 0, y: 0, width: 0, height: 0 })
+  const isPinchEndingRef = useRef(false)
 
   const mapRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -475,6 +476,10 @@ export function Map(props: MapProps) {
     }
 
     const onTouchMove = (ev: TouchEvent) => {
+      if (isPinchEndingRef.current) {
+        ev.preventDefault()
+        return
+      }
       if (ev.touches.length === 2) {
         ev.preventDefault()
         const [t1, t2] = [ev.touches[0], ev.touches[1]]
@@ -519,8 +524,15 @@ export function Map(props: MapProps) {
     }
 
     const onTouchEnd = (ev: TouchEvent) => {
-      if (ev.touches.length < 2) {
+      if (pinchStartDistanceRef.current > 0) {
+        ev.preventDefault() 
+        
+        isPinchEndingRef.current = true
         pinchStartDistanceRef.current = 0
+
+        setTimeout(() => {
+          isPinchEndingRef.current = false
+        }, 100)
       }
     }
 
