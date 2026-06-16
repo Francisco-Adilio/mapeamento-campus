@@ -278,16 +278,16 @@ F67 - sala de professores`,
 ]
 
 export const connections: Connection[] = [
-  {
+  {// guarita a bloco B
     id1: 1,
     id2: 2,
-    distance: 63,
+    distance: 20,
     lines: [
       { x1: 917, y1: 671, x2: 966, y2: 569 },
       { x1: 967 , y1: 571, x2: 883, y2: 542 },
     ]
   },
-  {
+  {//guarita a pergolado verde
     id1: 1,
     id2: 11,
     distance: 20,
@@ -296,8 +296,8 @@ export const connections: Connection[] = [
       { x1: 955, y1: 680, x2: 936, y2: 723 },
     ]
   },
-  {//bloco C a bloco D
-    id1: 5,
+  {//bloco b a bloco D
+    id1: 2,
     id2: 6,
     distance: 20,
     lines: [
@@ -308,8 +308,8 @@ export const connections: Connection[] = [
       { x1: 719, y1: 453, x2: 705, y2: 465 },
     ]
   },
-  {//bloco C a bloco D
-    id1: 5,
+  {//bloco b a bloco E
+    id1: 2,
     id2: 7,
     distance: 20,
     lines: [
@@ -364,7 +364,7 @@ export const connections: Connection[] = [
     ]
   },
     {//Biodigestor a bloco D
-    id1: 10,
+    id1: 6,
     id2: 14,
     distance: 20,
     lines: [
