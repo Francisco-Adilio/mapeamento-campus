@@ -71,7 +71,7 @@ DAE
 - Alimentação estudantil
 - Estágio e emprego
 - Biblioteca `,
-    images: ['/foto_blocoa.jpg']
+    images: ['/foto_blocoa.jpg','/a1.jpg', '/a2.jpg']
   },
   {
     id: 4,
@@ -105,7 +105,7 @@ DAE
 - C34 - comunicações externas 
 - Direção-Geral
 - C33 - TI`,
-    images: ['/laboratorio.jpg']
+    images: ['/c1.jpg', '/c2.jpg']
   },
   {
     id: 6,
@@ -132,7 +132,7 @@ D24 - sala de aula
 D25 - sala de aula
 D26 - sala de aula 
 D27 - audiovisual`,
-    images: ['/auditorio.jpg']
+    images: ['/d1.jpg']
   },
   {
     id: 7,
@@ -190,7 +190,7 @@ F63 - Sala de aula
 F65 - Sala de aula
 F66 - Lab segurança do trabalho 
 F67 - sala de professores`,
-    images: ['/estacionamento.jpg']
+    images: ['/f1.jpg']
   },
   {
     id: 9,
@@ -202,7 +202,7 @@ F67 - sala de professores`,
     description: 'Horta sustentável do IFSC Chapecó',
     details: 'A IFHorta Pedagógica do IFSC Câmpus Chapecó é um projeto de agroecologia e sustentabilidade criado em 2025 por estudantes e professores da Oficina de Integração III. Inspirada em conhecimentos ancestrais e práticas agroflorestais, a iniciativa busca promover a produção sustentável de alimentos, o cultivo de plantas alimentícias, flores, árvores nativas e frutíferas, além de incentivar a valorização dos saberes da agricultura familiar. Desenvolvida de forma colaborativa, a horta funciona como um espaço de aprendizagem prática, integrando conhecimentos de diversas áreas e estimulando o protagonismo estudantil. Além de contribuir para a educação ambiental, o projeto fortalece a reflexão sobre alimentação, sustentabilidade, biodiversidade e a relação harmoniosa entre sociedade e natureza',
     link: 'https://docs.google.com/document/d/1FcjfXuhOzjJS4MXsZO67-V_BfLxw0DcCzcWuuvi2HfA/edit?usp=sharing',
-    images: ['/20260326_163153.jpg', '/20260326_163225.jpg']
+    images: ['/20260326_163153.jpg', '/20260326_163225.jpg', 'horta1.jpg','horta2.jpg','horta3.jpg']
   },
   {
     id: 10,
@@ -214,7 +214,7 @@ F67 - sala de professores`,
     description: `Reaproveitamento de resíduos`,
     details: 'A Vermicompostagem do IFSC Câmpus Chapecó é um projeto de sustentabilidade que utiliza minhocas para transformar resíduos orgânicos em biofertilizante natural. Reativado em 2026 por estudantes da Oficina de Integração III, o sistema busca reaproveitar restos de alimentos gerados no campus, reduzindo o descarte de resíduos e producing adubo para a IFHorta. Além de contribuir para a melhoria do solo e para a agricultura sustentável, o projeto proporciona uma experiência prática de educação ambiental, incentivando a conscientização sobre reciclagem de resíduos orgânicos, economia circular e preservação dos recursos naturais.',
     link: 'https://docs.google.com/document/d/1FcjfXuhOzjJS4MXsZO67-V_BfLxw0DcCzcWuuvi2HfA/edit?usp=sharing',
-    images: [ '/foto_1vermicompostagem.jpeg', '/foto_2vermicompostagem.jpeg', '/foto_3vermicompostagem.jpeg']
+    images: [ '/foto_1vermicompostagem.jpeg', '/foto_2vermicompostagem.jpeg', '/foto_3vermicompostagem.jpeg', 'vermi1.jpg','vermi2.jpg']
   },
   {
     id: 11,
@@ -224,7 +224,8 @@ F67 - sala de professores`,
     name: 'Estação 1 - Pergolado Verde',
     category: 'Circuito Sustentável',
     description: `Espaço de convivência`,
-    details: 'O Pergolado Verde do IFSC Câmpus Chapecó é um espaço de convivência ao ar livre criado em 2018 a partir de uma demanda estudantil por ambientes de integração. Ao longo dos anos, o projeto passou por diversas revitalizações e ampliações realizadas por diferentes turmas da Oficina de Integração III, envolvendo a instalação de novos bancos, mesas, trepadeiras, melhorias no acesso e reaproveitamento de materiais. Além de proporcionar um ambiente agradável para estudo e convivência, o pergolado tornou-se um exemplo de sustentabilidade, trabalho colaborativo e aprendizagem prática, fortalecendo a integração entre estudantes, professores e comunidade escolar. ',images: ['/20260326_161357.jpg'],
+    details: 'O Pergolado Verde do IFSC Câmpus Chapecó é um espaço de convivência ao ar livre criado em 2018 a partir de uma demanda estudantil por ambientes de integração. Ao longo dos anos, o projeto passou por diversas revitalizações e ampliações realizadas por diferentes turmas da Oficina de Integração III, envolvendo a instalação de novos bancos, mesas, trepadeiras, melhorias no acesso e reaproveitamento de materiais. Além de proporcionar um ambiente agradável para estudo e convivência, o pergolado tornou-se um exemplo de sustentabilidade, trabalho colaborativo e aprendizagem prática, fortalecendo a integração entre estudantes, professores e comunidade escolar. ',
+    images: ['/20260326_161357.jpg','pergolado1.jpg','pergolado2.jpg','pergolado3.jpg','pergolado4.jpg','pergolado5.jpg'],
     link: 'https://docs.google.com/document/d/1FcjfXuhOzjJS4MXsZO67-V_BfLxw0DcCzcWuuvi2HfA/edit?usp=sharing'
   },
   {
@@ -277,6 +278,22 @@ F67 - sala de professores`,
   },
 ]
 
+// 1 - Guarita
+// 2 - Bloco B
+// 3 - Bloco A
+// 4 - Estação 3 - Teto Verde
+// 5 - Bloco C
+// 6 - Bloco D
+// 7 - Bloco E
+// 8 - Bloco F
+// 9 - Estação 15 - IFHorta Pedagógica
+// 10 - Estação 12 - Vermicompostagem
+// 11 - Estação 1 - Pergolado Verde
+// 12 - Estação 5 - PTQA
+// 13 - Estação 9 - Meliponário
+// 14 - Estação 11 - Biodigestor
+// 15 - Estação 14 - Redário
+
 export const connections: Connection[] = [
   {// guarita a bloco B
     id1: 1,
@@ -285,6 +302,13 @@ export const connections: Connection[] = [
     lines: [
       { x1: 917, y1: 671, x2: 966, y2: 569 },
       { x1: 967 , y1: 571, x2: 883, y2: 542 },
+    ]
+  },
+  {// guarita a bloco B
+    id1: 2,
+    id2: 3,
+    distance: 20,
+    lines: [
     ]
   },
   {//guarita a pergolado verde
@@ -296,28 +320,35 @@ export const connections: Connection[] = [
       { x1: 955, y1: 680, x2: 936, y2: 723 },
     ]
   },
-  {//bloco b a bloco D
+  {//bloco B a bloco C
     id1: 2,
+    id2: 5,
+    distance: 20,
+    lines: [
+      { x1: 883, y1: 542, x2: 846, y2: 529 },
+      { x1: 868, y1: 510, x2: 848, y2: 529 },
+      { x1: 865, y1: 511, x2: 814, y2: 494 },
+      
+    ]
+  },
+  {//bloco C a bloco D
+    id1: 5,
     id2: 6,
     distance: 20,
     lines: [
-      { x1: 883, y1: 540, x2: 848, y2: 529 },
-      { x1: 848, y1: 530, x2: 866, y2: 511 },
-      { x1: 866, y1: 511, x2: 744, y2: 471 },
-      { x1: 719, y1: 453, x2: 744, y2: 471 },
-      { x1: 719, y1: 453, x2: 705, y2: 465 },
+      { x1: 814, y1: 494, x2: 719, y2: 463 },
+      { x1: 720, y1: 462, x2: 712, y2: 467 },
+      
     ]
   },
-  {//bloco b a bloco E
-    id1: 2,
+  {//bloco C a bloco E
+    id1: 5,
     id2: 7,
     distance: 20,
     lines: [
-      { x1: 883, y1: 540, x2: 848, y2: 529 },
-      { x1: 848, y1: 530, x2: 866, y2: 511 },
-      { x1: 866, y1: 511, x2: 744, y2: 471 },
-      { x1: 719, y1: 453, x2: 744, y2: 471 },
-      { x1: 719, y1: 453, x2: 727, y2: 447 },
+      { x1: 814, y1: 494, x2: 719, y2: 463 },
+      { x1: 719, y1: 465, x2: 734, y2: 447 },
+     
     ]
   },
   {//bloco D a bloco F
@@ -325,10 +356,10 @@ export const connections: Connection[] = [
     id2: 8,
     distance: 20,
     lines: [
-      { x1: 708, y1: 464, x2: 682, y2: 456 },
-      { x1: 687, y1: 450, x2: 682, y2: 456 },
-      { x1: 687, y1: 450, x2: 679, y2: 448 },
-      { x1: 686, y1: 441, x2: 679, y2: 448 },
+      { x1: 715, y1: 467, x2: 682, y2: 456 },
+      { x1: 689, y1: 450, x2: 684, y2: 456 },
+      { x1: 690, y1: 453, x2: 677, y2: 448 },
+      { x1: 684, y1: 441, x2: 679, y2: 448 },
       { x1: 647, y1: 427, x2: 686, y2: 441 },
     ]
   },
